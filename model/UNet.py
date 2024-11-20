@@ -38,7 +38,7 @@ class UNet(nn.Module):
         # Crop and concatenate layers for the expansive path.
         self.concat = nn.ModuleList([CropAndConcatenate() for _ in range(4)])
 
-        # Final $1 \times 1$ convolution layer to produce the output
+        # Final 1x1 convolution layer to produce the output
         self.final_conv = nn.Conv2d(64, out_channels, kernel_size=1)
 
     def forward(self, x):
@@ -47,14 +47,14 @@ class UNet(nn.Module):
 
         # Contracting path
         for i in range(len(self.down_conv)):
-            # Two $3 \times 3$ convolutional layers
+            # Two 3x3 convolutional layers
             x = self.down_conv[i](x)
             # Collect the output
             pass_through.append(x)
             # Down-sample
             x = self.down_sample[i](x)
 
-        # Two $3 \times 3$ convolutional layers at the bottom of the U-Net
+        # Two 3x3 convolutional layers at the bottom of the U-Net
         x = self.middle_conv(x)
 
         # Expansive path
@@ -63,10 +63,10 @@ class UNet(nn.Module):
             x = self.up_sample[i](x)
             # Concatenate the output of the contracting path
             x = self.concat[i](x, pass_through.pop())
-            # Two $3 \times 3$ convolutional layers
+            # Two 3x3 convolutional layers
             x = self.up_conv[i](x)
 
-        # Final $1 \times 1$ convolution layer
+        # Final 1x1 convolution layer
         x = self.final_conv(x)
 
         return x

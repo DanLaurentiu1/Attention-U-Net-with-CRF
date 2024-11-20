@@ -18,7 +18,6 @@ class BeachLitterDataset(Dataset):
         self.masks = sorted([root_path + "\\maskpngs\\" + i for i in os.listdir(root_path + "\\maskpngs\\")])
 
         self.transform_to_image = transforms.Compose([
-            transforms.Grayscale(num_output_channels=1),
             transforms.ToPILImage()
         ])
 
@@ -28,7 +27,8 @@ class BeachLitterDataset(Dataset):
 
     def __getitem__(self, index):
         img = Image.open(self.images[index]).convert("RGB")
-        mask = Image.open(self.masks[index]).convert("RGB")
+        mask = Image.open(self.masks[index]).convert("L")
+        """
         mask = self.transform_to_tensor(mask)
         for row in range(512):
             for col in range(512):
@@ -39,6 +39,7 @@ class BeachLitterDataset(Dataset):
                 else:
                     mask[0][row][col], mask[1][row][col], mask[2][row][col] = 1.0, 1.0, 1.0
         mask = self.transform_to_image(mask)
+        """
         return self.transform_to_tensor(img), self.transform_to_tensor(mask)
 
     def __len__(self):

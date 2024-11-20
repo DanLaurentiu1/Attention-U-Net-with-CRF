@@ -10,9 +10,11 @@ class DoubleConvolution(nn.Module):
         self.act1 = nn.ReLU()
         self.second = nn.Conv2d(out_channels, out_channels, kernel_size=3, padding=1)
         self.act2 = nn.ReLU()
+        self.batch_norm = nn.BatchNorm2d(num_features=out_channels)
 
     def forward(self, x):
         x = self.first(x)
+        x = self.batch_norm(x)
         x = self.act1(x)
         x = self.second(x)
         return self.act2(x)
