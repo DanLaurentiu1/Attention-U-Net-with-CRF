@@ -1,4 +1,5 @@
 import torch
+from matplotlib import pyplot as plt
 from torch import optim, nn
 from torch.utils.data import DataLoader, random_split
 from torch.utils import checkpoint
@@ -11,13 +12,16 @@ if __name__ == "__main__":
     LEARNING_RATE = 1e-3
     BATCH_SIZE = 32
     EPOCHS = 2
-    DATA_PATH = "C:\\Users\\Lau\\PycharmProjects\\research_project\\beachlitter_dataset_2022_smaller\\beachlitter"
+    DATA_PATH = "C:\\Users\\Lau\\PycharmProjects\\research_project\\beachlitter_dataset_2022_2\\beachlitter"
     MODEL_SAVE_PATH = "C:\\Users\\Lau\\PycharmProjects\\research_project\\model\\model.pth"
 
     device = "cuda" if torch.cuda.is_available() else "cpu"
     print(device)
 
     dataset = BeachLitterDataset(root_path=DATA_PATH)
+
+
+    """
     generator = torch.Generator().manual_seed(42)
 
     train_dataset, val_dataset = random_split(dataset, [0.8, 0.2], generator=generator)
@@ -75,3 +79,4 @@ if __name__ == "__main__":
         print(f"Val Loss EPOCH {epoch + 1}: {val_loss:.4f}")
 
     torch.save(model.state_dict(), MODEL_SAVE_PATH)
+"""
