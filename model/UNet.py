@@ -1,5 +1,3 @@
-import torch
-import torchvision.transforms.functional
 from torch import nn
 
 from model.CropAndConcatenate import CropAndConcatenate

@@ -29,6 +29,7 @@ class BeachLitterDataset(Dataset):
     def __getitem__(self, index):
         img = Image.open(self.images[index]).convert("RGB")
         mask = Image.open(self.masks[index]).convert("L")
+
         return self.transform_to_tensor(img), self.transform_to_tensor(mask)
 
     def __len__(self):

@@ -12,17 +12,16 @@ if __name__ == "__main__":
     LEARNING_RATE = 1e-3
     BATCH_SIZE = 32
     EPOCHS = 2
-    DATA_PATH = "C:\\Users\\Lau\\PycharmProjects\\research_project\\beachlitter_dataset_2022_2\\beachlitter"
-    MODEL_SAVE_PATH = "C:\\Users\\Lau\\PycharmProjects\\research_project\\model\\model.pth"
+    DATA_PATH = "C:\\Users\\Lau\\PycharmProjects\\Attention-U-Net-with-CRF\\beachlitter_dataset_2022_big_binary\\beachlitter"
+    MODEL_SAVE_PATH = "C:\\Users\\Lau\\PycharmProjects\\Attention-U-Net-with-CRF\\model\\model.pth"
 
     device = "cuda" if torch.cuda.is_available() else "cpu"
     print(device)
 
     dataset = BeachLitterDataset(root_path=DATA_PATH)
 
-
-    """
     generator = torch.Generator().manual_seed(42)
+
 
     train_dataset, val_dataset = random_split(dataset, [0.8, 0.2], generator=generator)
 
@@ -36,7 +35,7 @@ if __name__ == "__main__":
 
     model = UNet(in_channels=3, out_channels=1).to(device)
 
-    model = torch.utils.checkpoint.CheckpointFunction.apply(model)
+    # model = torch.utils.checkpoint.CheckpointFunction.apply(model)
 
     optimizer = optim.AdamW(model.parameters(), lr=LEARNING_RATE)
     criterion = nn.BCEWithLogitsLoss()
@@ -79,4 +78,3 @@ if __name__ == "__main__":
         print(f"Val Loss EPOCH {epoch + 1}: {val_loss:.4f}")
 
     torch.save(model.state_dict(), MODEL_SAVE_PATH)
-"""
